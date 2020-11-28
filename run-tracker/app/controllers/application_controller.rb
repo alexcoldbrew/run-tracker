@@ -11,4 +11,32 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  get '/runs/new' do
+
+  end
+
+  get '/runs' do
+
+  end
+
+  post '/runs' do
+
+  end
+
+  get '/runs/:id' do
+
+  end
+
+  get '/runs/:id/edit' do
+
+  end
+
+  patch '/runs/:id' do
+
+  end
+
+  delete '/runs/:id' do
+
+  end
+
 end
