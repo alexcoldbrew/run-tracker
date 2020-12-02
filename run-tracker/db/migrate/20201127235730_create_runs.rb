@@ -1,7 +1,7 @@
 class CreateRuns < ActiveRecord::Migration
   def change
     create_table :runs do |t|
-      t.datetime :time
+      t.string :date
       t.float :distance
       t.integer :hours
       t.integer :minutes
