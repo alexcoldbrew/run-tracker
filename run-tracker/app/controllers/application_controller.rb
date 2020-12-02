@@ -45,6 +45,7 @@ class ApplicationController < Sinatra::Base
       erb :signup
     else
       redirect to '/runs'
+    end
   end
 
   post '/signup' do
@@ -54,6 +55,7 @@ class ApplicationController < Sinatra::Base
       @user = User.create(username: params[:username], email: params[:email], password: params[:password])
       session[:id] = @user.id
       redirect to '/runs'
+    end
   end
 
   get '/logout' do
