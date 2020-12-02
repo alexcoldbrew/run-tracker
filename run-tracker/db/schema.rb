@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20201127235730) do
     t.integer "hours"
     t.integer "minutes"
     t.integer "seconds"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -7,6 +7,7 @@ class CreateRuns < ActiveRecord::Migration
       t.integer :minutes
       t.integer :seconds
       # will be able to convert hours to minutes and determine average pace for the distance I believe
+      t.integer :user_id
     end
   end
 end
