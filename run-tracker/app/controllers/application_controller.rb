@@ -14,12 +14,12 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    redirect to '/runs'
+    erb :index
   end
 
   get '/runs' do
     @runs = Run.all
-    erb :index
+    erb :show
   end
 
   get '/login' do
@@ -41,11 +41,11 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/signup' do
-    if session[:id] == nil
+    # if session[:id] == nil
       erb :signup
-    else
-      redirect to '/runs'
-    end
+    # else
+    #   redirect to '/runs'
+    # end
   end
 
   post '/signup' do
