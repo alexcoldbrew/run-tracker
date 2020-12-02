@@ -2,7 +2,12 @@
 
 <% @runs.each do |run| %>
     <ul>
-        Distance: <li><%= run.distance %></li>
-        Duration: <li><%= run.hours %> hours <%= run.minutes %> minutes <%= run.seconds %> seconds</li>
-    </ul
+        <li>Date <%= run.time %></li>
+        <li>Distance: <%= run.distance %></li>
+        <li>Duration: <%= run.hours %> hours <%= run.minutes %> minutes <%= run.seconds %> seconds</li><br>
+    </ul>
 <% end %>
+
+<br><br>
+
+<a href='/runs/new'>Log a New Run</a>

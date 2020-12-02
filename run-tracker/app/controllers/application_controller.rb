@@ -14,11 +14,17 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
+    @runs = Run.all
     erb :index
   end
 
   get '/runs' do
     @runs = Run.all
+    erb :show
+  end
+
+  post '/runs' do
+    Run.create(params)
     erb :show
   end
 
