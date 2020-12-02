@@ -8,7 +8,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    erb :index
+    redirect to '/runs'
   end
 
   # CREATE
@@ -27,29 +27,6 @@ class ApplicationController < Sinatra::Base
   post '/runs' do
     @run = Run.create(:time => params[:time], :distance => params[:distance], :hours => params[:hours], :minutes => params[:minutes], :seconds => params[:seconds])
     redirect to "/runs/#{@run.id}"
-  end
-
-  post '/login' do
-    @user = User.find_by_id(:username => params[:username])
-    if @user != nil && @user.password == params[:password]
-      session[:user_id] = @user.id
-      redirect to '/account'
-    end
-    erb :error
-  end
-
-  get '/account' do
-    @current_user = User.find_by_id(session[:user_id])
-    if @current_user
-      erb:account
-    else
-      erb :error
-    end
-  end
-
-  get '/logout' do
-    session.clear
-    redirect to '/'
   end
 
   # READ
@@ -92,6 +69,31 @@ class ApplicationController < Sinatra::Base
     @run = Run.find_by_id(params[:id])
     @run.destroy
     redirect to "/runs"
+  end
+
+
+
+  post '/login' do
+    @user = User.find_by_id(:username => params[:username])
+    if @user != nil && @user.password == params[:password]
+      session[:user_id] = @user.id
+      redirect to '/account'
+    end
+    erb :error
+  end
+
+  get '/account' do
+    @current_user = User.find_by_id(session[:user_id])
+    if @current_user
+      erb:account
+    else
+      erb :error
+    end
+  end
+
+  get '/logout' do
+    session.clear
+    redirect to '/'
   end
 
 end
