@@ -9,9 +9,24 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "secret"
   end
 
+  get '/runs/new' do
+      erb :new
+  end
+
   get "/" do
     redirect to '/runs'
   end
+
+  get '/runs' do
+    @runs = Run.all
+    erb :index
+  end
+
+  get '/login' do
+    erb :login
+  end
+
+
 
   helpers do
     def logged_in?
