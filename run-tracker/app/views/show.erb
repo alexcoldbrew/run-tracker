@@ -1,1 +1,8 @@
 <h1>Runs</h1>
+
+<% @runs.each do |run| %>
+    <ul>
+        Distance: <li><%= run.distance %></li>
+        Duration: <li><%= run.hours %> hours <%= run.minutes %> minutes <%= run.seconds %> seconds</li>
+    </ul
+<% end %>
