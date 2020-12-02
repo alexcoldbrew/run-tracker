@@ -90,7 +90,7 @@ class ApplicationController < Sinatra::Base
 
   delete '/runs/:id' do
     @run = Run.find_by_id(params[:id])
-    @run.delete
+    @run.destroy
     redirect to "/runs"
   end
 
