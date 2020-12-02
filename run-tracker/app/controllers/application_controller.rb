@@ -28,6 +28,25 @@ class ApplicationController < Sinatra::Base
     erb :show
   end
 
+  post '/runs/new' do
+    if logged_in?
+      @run = Run.new(params)
+      @run.user_id = session[:user_id]
+      @run.save
+    else
+      redirect to '/login'
+    end
+  end
+
+  get '/runs/:id' do
+    if logged_in?
+      @run - Run.find_by_id(params[:id])
+      erb :show
+    else
+      redirect to '/login'
+    end
+  end
+
   get '/runs/:id/edit' do
     @run = Run.find_by_id(params[:id])
     if logged_in? && @run.user[:id] == session[:user_id]
@@ -70,11 +89,11 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/signup' do
-    # if session[:id] == nil
+    if session[:id] == nil
       erb :signup
-    # else
-    #   redirect to '/runs'
-    # end
+    else
+      redirect to '/runs'
+    end
   end
 
   post '/signup' do
