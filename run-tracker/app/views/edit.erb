@@ -1,5 +1,9 @@
 <h1>Edit Run</h1><br>
 
+<a href='/runs'>Go Back to Runs</a>
+
+<br><br>
+
 <form action='/runs/<%= @run.id %>' method='post'>
     <input type='hidden' name='_method' value='patch'>
     Date: <input type='text' name='date' value='<%= @run.date %>'><br><br>
