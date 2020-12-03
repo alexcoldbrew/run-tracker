@@ -20,15 +20,16 @@ class ApplicationController < Sinatra::Base
 
   get '/runs' do
     if logged_in?
-      @user = User.find_by_id(session[:user_id])
-      @runs = Run.all
+      @user = current_user
+      @runs = current_user.runs
       erb :show
     else
-      erb :empty_show
+      redirect '/login'
     end
   end
 
   post '/runs' do
+    @user = current_user
     @runs = Run.all
     Run.create(params)
     erb :show
@@ -36,6 +37,7 @@ class ApplicationController < Sinatra::Base
 
   post '/runs/new' do
     if logged_in?
+      @user = current_user
       @run = Run.new(params)
       @run.user_id = session[:user_id]
       @run.save
@@ -140,6 +142,11 @@ class ApplicationController < Sinatra::Base
     def logged_in?
       !!session[:user_id]
     end
+
+    def current_user
+      @user ||= User.find(session[:user_id]) 
+    end
+
   end
 
 end
