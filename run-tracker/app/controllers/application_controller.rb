@@ -49,7 +49,7 @@ class ApplicationController < Sinatra::Base
 
   get '/runs/:id/edit' do
     @run = Run.find_by_id(params[:id])
-    if logged_in? && @run.user[:id] == session[:user_id]
+    if logged_in? # && @run.user[:id] == session[:user_id]
       erb :edit
     else
       redirect to '/login'
