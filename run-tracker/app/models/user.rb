@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-    has_many :run
+    has_many :runs
     validates :username, presence: true
     validates :email, presence: true
     validates :password, presence: true
