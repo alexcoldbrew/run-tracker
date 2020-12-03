@@ -13,7 +13,7 @@
         
         <li>Average Pace: <%= minutes_per_mile %>:<%= seconds_remainder %> per mile</li><br>
         
-        <a href='/runs/<%= @runs.ids[0] %>/edit'>Edit Run</a>
+        <a href='/runs/<%= run.id %>/edit'>Edit Run</a>
 
         <form action='/runs/<%= @runs.ids[0] %>/delete' method='post'>
             <input type='hidden' name='_method' value='delete'>

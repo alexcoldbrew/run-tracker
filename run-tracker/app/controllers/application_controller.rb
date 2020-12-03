@@ -34,6 +34,7 @@ class ApplicationController < Sinatra::Base
       @run = Run.new(params)
       @run.user_id = session[:user_id]
       @run.save
+      erb :show
     else
       redirect to '/login'
     end
