@@ -24,6 +24,7 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/runs' do
+    @runs = Run.all
     Run.create(params)
     erb :show
   end
@@ -40,7 +41,7 @@ class ApplicationController < Sinatra::Base
 
   get '/runs/:id' do
     if logged_in?
-      @run - Run.find_by_id(params[:id])
+      @run = Run.find_by_id(params[:id])
       erb :show
     else
       redirect to '/login'
@@ -71,6 +72,14 @@ class ApplicationController < Sinatra::Base
     else
       redirect to '/login'
     end
+  end
+
+  delete '/runs/:id/delete' do
+    @run = Run.find_by_id(params[:id])
+    if logged_in?
+      @run.destroy
+    end
+    redirect to '/runs'
   end
 
   get '/login' do

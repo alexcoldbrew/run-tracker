@@ -5,15 +5,17 @@
         <li>Date: <%= run.date %></li>
         <li>Distance: <%= run.distance %> miles</li>
         <li>Duration: <%= run.hours %> hours <%= run.minutes %> minutes <%= run.seconds %> seconds</li>
+
         <% total_seconds = (run.hours * 3600) + (run.minutes * 60) + (run.seconds) %>
         <% seconds_per_mile = ((total_seconds.to_f) / (run.distance)) %>
         <% minutes_per_mile = ((seconds_per_mile.to_i) / (60)) %>
         <% seconds_remainder = ((seconds_per_mile.to_i) - (minutes_per_mile * 60))%>
+        
         <li>Average Pace: <%= minutes_per_mile %>:<%= seconds_remainder %> per mile</li><br>
         
         <a href='/runs/<%= @runs.ids[0] %>/edit'>Edit Run</a>
 
-        <form action='/run/<%= @runs.ids[0] %>/delete' method='post'>
+        <form action='/runs/<%= @runs.ids[0] %>/delete' method='post'>
             <input type='hidden' name='_method' value='delete'>
             <input type='submit' value='Delete Run'>
         </form>
