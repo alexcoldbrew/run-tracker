@@ -10,10 +10,10 @@
         <% minutes_per_mile = ((seconds_per_mile.to_i) / (60)) %>
         <% seconds_remainder = ((seconds_per_mile.to_i) - (minutes_per_mile * 60))%>
         <li>Average Pace: <%= minutes_per_mile %>:<%= seconds_remainder %> per mile</li><br>
+        
+        <a href='/runs/<%= @runs.ids[0] %>/edit'>Edit Run</a>
 
-        <a href='/runs/<%= @run.id %>/edit'>Edit Run</a>
-
-        <form action='/run/<%= @run.id %>/delete' method='post'>
+        <form action='/run/<%= @runs.ids[0] %>/delete' method='post'>
             <input type='hidden' name='_method' value='delete'>
             <input type='submit' value='Delete Run'>
         </form>
