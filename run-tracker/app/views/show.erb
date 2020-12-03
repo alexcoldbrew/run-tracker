@@ -15,7 +15,7 @@
         
         <a href='/runs/<%= run.id %>/edit'>Edit Run</a>
 
-        <form action='/runs/<%= @runs.ids[0] %>/delete' method='post'>
+        <form action='/runs/<%= run.id %>/delete' method='post'>
             <input type='hidden' name='_method' value='delete'>
             <input type='submit' value='Delete Run'>
         </form>

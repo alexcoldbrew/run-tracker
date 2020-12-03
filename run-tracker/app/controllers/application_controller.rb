@@ -88,6 +88,9 @@ class ApplicationController < Sinatra::Base
     redirect to '/runs'
   end
 
+
+
+
   get '/login' do
     if logged_in?
       redirect to '/runs'
@@ -129,6 +132,8 @@ class ApplicationController < Sinatra::Base
     redirect to '/'
   end
 
+
+  
 
 
   helpers do
