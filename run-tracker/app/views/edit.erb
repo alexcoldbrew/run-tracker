@@ -1,6 +1,6 @@
 <h1>Edit Run</h1><br>
 
-<form action='/run/<%= @run.id[0] %>' method='post'>
+<form action='/runs/<%= @run.id[0] %>' method='post'>
     <input type='hidden' name='_method' value='patch'>
     Date: <input type='text' name='date' value='<%= @run.date %>'><br><br>
     Distance: <input type='text' name='distance' value='<%= @run.distance %>'> miles<br><br>

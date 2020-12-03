@@ -49,22 +49,25 @@ class ApplicationController < Sinatra::Base
 
   get '/runs/:id/edit' do
     @run = Run.find_by_id(params[:id])
-    if logged_in? # && @run.user[:id] == session[:user_id]
+    if logged_in?
       erb :edit
     else
       redirect to '/login'
     end
   end
 
-  patch '/runs/:id/edit' do
+  patch '/runs/:id' do
     @run = Run.find_by_id(params[:id])
-    if logged_in? && @run.user[:id] == session[:user_id]
+    if logged_in?
+      
       @run.date = params[:date]
       @run.distance = params[:distance]
       @run.hours = params[:hours]
       @run.minutes = params[:minutes]
       @run.seconds = params[:seconds]
       @run.save
+
+      redirect to '/runs'
     else
       redirect to '/login'
     end
@@ -80,7 +83,7 @@ class ApplicationController < Sinatra::Base
 
   post '/login' do
     @user = User.find_by(username: params[:username])
-    if @user # && @user.authenticate(params[:password])
+    if @user
       session[:user_id] = @user.id
       redirect to '/runs'
     else
