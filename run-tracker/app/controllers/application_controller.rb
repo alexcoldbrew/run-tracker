@@ -7,6 +7,12 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, "secret"
+    # set :show_exceptions, false
+  end
+
+  not_found do
+    status 404
+    erb :error
   end
 
   get '/runs/new' do
@@ -19,7 +25,6 @@ class ApplicationController < Sinatra::Base
 
   get '/runs' do
     if logged_in?
-      
       @runs = current_user.runs
       erb :show
     else
@@ -34,17 +39,14 @@ class ApplicationController < Sinatra::Base
     @run.user_id = session[:user_id]
     @run.save
     erb :show
-    #binding.pry
   end
 
   post '/runs/new' do
     if logged_in?
-      
       @run = Run.new(params)
       @run.user_id = session[:user_id]
       @run.save
       erb :show
-      
     else
       redirect to '/login'
     end
@@ -71,14 +73,12 @@ class ApplicationController < Sinatra::Base
   patch '/runs/:id' do
     @run = Run.find_by_id(params[:id])
     if logged_in?
-      
       @run.date = params[:date]
       @run.distance = params[:distance]
       @run.hours = params[:hours]
       @run.minutes = params[:minutes]
       @run.seconds = params[:seconds]
       @run.save
-
       redirect to '/runs'
     else
       redirect to '/login'
@@ -93,8 +93,7 @@ class ApplicationController < Sinatra::Base
     redirect to '/runs'
   end
 
-
-
+##############################
 
   get '/login' do
       erb :login
@@ -129,9 +128,7 @@ class ApplicationController < Sinatra::Base
     redirect to '/'
   end
 
-
-  
-
+###############################
 
   helpers do
     def logged_in?
@@ -141,7 +138,10 @@ class ApplicationController < Sinatra::Base
     def current_user
       @user ||= User.find(session[:user_id]) 
     end
-
   end
+
+  # error ActiveRecord::RecordNotFound do
+  #   erb :error
+  # end
 
 end
