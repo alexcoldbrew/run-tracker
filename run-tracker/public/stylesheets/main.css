@@ -130,6 +130,29 @@
   background-color: #990000
 }
 
+#login {
+  font-size: 16px;
+  background-color: #FFFF00;
+  padding: 5px;
+  text-decoration: none;
+  border: none;
+}
+
+#login:hover {
+  background-color: #33FFFF;
+}
+
+#signup {
+  font-size: 16px;
+  background-color: #FFFF00;
+  padding: 5px;
+  text-decoration: none;
+  border: none;
+}
+
+#signup:hover {
+  background-color: #33FFFF;
+}
 
 
 @media screen and (max-width: 600px) {
