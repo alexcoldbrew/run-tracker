@@ -97,11 +97,7 @@ class ApplicationController < Sinatra::Base
 
 
   get '/login' do
-    if logged_in?
-      redirect to '/runs'
-    else
       erb :login
-    end
   end
 
   post '/login' do
@@ -115,11 +111,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/signup' do
-    if session[:id] == nil
-      erb :signup
-    else
-      redirect to '/runs'
-    end
+    erb :signup
   end
 
   post '/signup' do
