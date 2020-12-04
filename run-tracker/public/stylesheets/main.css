@@ -112,12 +112,22 @@
   text-decoration: none;
 }
 
+#new-run:hover {
+  background-color: #33FFFF;
+}
+
 #logout {
   float: right;
   font-size: 18px;
-  background-color: #FFFF00;
+  color: white;
+  background-color: #CC0000;
   font-weight: bold;
   text-decoration: none;
+  padding: 5px;
+}
+
+#logout:hover {
+  background-color: #990000
 }
 
 
