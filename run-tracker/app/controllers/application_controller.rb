@@ -14,13 +14,12 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    @runs = Run.all
     erb :index
   end
 
   get '/runs' do
     if logged_in?
-      @user = current_user
+      
       @runs = current_user.runs
       erb :show
     else
@@ -29,19 +28,23 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/runs' do
-    @user = current_user
-    @runs = Run.all
-    Run.create(params)
+    
+    @runs = current_user.runs
+    @run = Run.new(params)
+    @run.user_id = session[:user_id]
+    @run.save
     erb :show
+    #binding.pry
   end
 
   post '/runs/new' do
     if logged_in?
-      @user = current_user
+      
       @run = Run.new(params)
       @run.user_id = session[:user_id]
       @run.save
       erb :show
+      
     else
       redirect to '/login'
     end
@@ -102,7 +105,7 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/login' do
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(:username => params[:username])
     if @user != nil && @user.password == params[:password]
       session[:user_id] = @user.id
       redirect to '/runs'
