@@ -13,12 +13,14 @@
         
         <li><b>Average Pace:</b> <%= minutes_per_mile %>'<%= seconds_remainder %>" per mile</li><br>
         
-        <a href='/runs/<%= run.id %>/edit'>Edit Run</a>
+        <div class='side-by-side'>
+        <a id='submit' class='margin-right' href='/runs/<%= run.id %>/edit'>Edit Run</a>
 
         <form action='/runs/<%= run.id %>/delete' method='post'>
             <input type='hidden' name='_method' value='delete'>
-            <input type='submit' value='Delete Run'>
+            <input type='submit' id='submit' value='Delete Run'>
         </form>
+        </div>
 
         <br><br>
     </ul>
