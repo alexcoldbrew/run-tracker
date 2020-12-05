@@ -7,7 +7,6 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, "secret"
-    # set :show_exceptions, false
   end
 
   not_found do
@@ -141,9 +140,5 @@ class ApplicationController < Sinatra::Base
       @user ||= User.find(session[:user_id]) 
     end
   end
-
-  # error ActiveRecord::RecordNotFound do
-  #   erb :error
-  # end
 
 end
