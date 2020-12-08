@@ -2,17 +2,17 @@ class RunsController < ApplicationController
 
     
     get '/runs/new' do
-        erb :new
+        erb :'/runs/new'
     end
   
     get "/" do
-      erb :index
+      erb :'/runs/index'
     end
   
     get '/runs' do
       if logged_in?
         @runs = current_user.runs
-        erb :show
+        erb :'/runs/show'
       else
         redirect '/login'
       end
@@ -21,12 +21,12 @@ class RunsController < ApplicationController
     post '/runs' do
       # add validations
       # if params[:distance].empty?
-      
+
       @runs = current_user.runs
       @run = Run.new(params)
       @run.user_id = session[:user_id]
       @run.save
-      erb :show
+      erb :'runs/show'
     end
   
     post '/runs/new' do
@@ -34,7 +34,7 @@ class RunsController < ApplicationController
         @run = Run.new(params)
         @run.user_id = session[:user_id]
         @run.save
-        erb :show
+        erb :'/runs/show'
       else
         redirect to '/login'
       end
@@ -43,7 +43,7 @@ class RunsController < ApplicationController
     get '/runs/:id' do
       if logged_in?
         @run = Run.find_by_id(params[:id])
-        erb :show
+        erb :'/runs/show'
       else
         redirect to '/login'
       end
@@ -52,7 +52,7 @@ class RunsController < ApplicationController
     get '/runs/:id/edit' do
       @run = Run.find_by_id(params[:id])
       if logged_in?
-        erb :edit
+        erb :'/runs/edit'
       else
         redirect to '/login'
       end
