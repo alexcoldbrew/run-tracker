@@ -14,7 +14,7 @@
         
         <li><b>Average Pace:</b> <%= minutes_per_mile %>'<%= seconds_remainder %>" per mile</li><br>
         
-        <% if @run.user_id == session[:user_id] %>
+        <% if @run.user == current_user %>
             <div class='side-by-side'>
             <a id='submit' class='margin-right' href='/runs/<%= @run.id %>/edit'>Edit Run</a>
 
