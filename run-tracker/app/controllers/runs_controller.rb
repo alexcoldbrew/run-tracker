@@ -5,9 +5,9 @@ class RunsController < ApplicationController
         erb :'/runs/new'
     end
   
-    get "/" do
-      erb :'/runs/index'
-    end
+    # get "/" do
+    #   erb :'/runs/index'
+    # end
   
     get '/runs' do
       if logged_in?
@@ -58,6 +58,7 @@ class RunsController < ApplicationController
             erb :'/runs/edit'
         else
             # flash an error message
+            flash.now[:error] = "This isn't yours to edit!"
             redirect to '/login'
         end
     else
