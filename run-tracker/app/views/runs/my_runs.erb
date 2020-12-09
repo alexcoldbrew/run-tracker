@@ -1,5 +1,8 @@
-<h1>RunTracker</h1><br>
-<h2>All Users' Runs</h2>
+<h1>Current User: <%= @user.username %>'s Runs</h1><br>
+
+<a id='submit' href='/runs'>See All Users' Runs</a>
+
+<br><br><br>
 
 <% @runs.each do |run| %>
 
@@ -8,14 +11,16 @@
 
     <br>
         
-    <a id ='submit' href="/runs/<%= run.id %>">See Run</a>
+    <a id='submit' href="/runs/<%= run.id %>">See Run Details</a>
 
     <br><br><br>
 
-<% end %>
+<% end %> 
 
 <br><br>
 
 <a id='new-run' href='/runs/new'>Log a New Run</a>
+
+
 
 <a id='logout' href="/logout">Log Out</a>

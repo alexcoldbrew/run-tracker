@@ -1,30 +1,33 @@
-<h1><%= @user.username %>'s Runs</h1><br>
+<h2><%= @user.username %>'s Run</h2><br>
 
-<% @runs.each do |run| %>
+<a id='submit' href='/runs'>Back to All Users' Runs</a> <br><br><br>
+
     <ul>
-        <li><b>Date:</b> <%= run.date %></li>
-        <li><b>Distance:</b> <%= run.distance %> miles</li>
-        <li><b>Duration:</b> <%= run.hours %> hours <%= run.minutes %> minutes <%= run.seconds %> seconds</li>
+        <li><b>Date:</b> <%= @run.date %></li>
+        <li><b>Distance:</b> <%= @run.distance %> miles</li>
+        <li><b>Duration:</b> <%= @run.hours %> hours <%= @run.minutes %> minutes <%= @run.seconds %> seconds</li>
 
-        <% total_seconds = (run.hours * 3600) + (run.minutes * 60) + (run.seconds) %>
-        <% seconds_per_mile = ((total_seconds.to_f) / (run.distance)) %>
+        <% total_seconds = (@run.hours * 3600) + (@run.minutes * 60) + (@run.seconds) %>
+        <% seconds_per_mile = ((total_seconds.to_f) / (@run.distance)) %>
         <% minutes_per_mile = ((seconds_per_mile.to_i) / (60)) %>
         <% seconds_remainder = ((seconds_per_mile.to_i) - (minutes_per_mile * 60))%>
         
         <li><b>Average Pace:</b> <%= minutes_per_mile %>'<%= seconds_remainder %>" per mile</li><br>
         
-        <div class='side-by-side'>
-        <a id='submit' class='margin-right' href='/runs/<%= run.id %>/edit'>Edit Run</a>
+        <% if @run.user_id == session[:user_id] %>
+            <div class='side-by-side'>
+            <a id='submit' class='margin-right' href='/runs/<%= @run.id %>/edit'>Edit Run</a>
 
-        <form action='/runs/<%= run.id %>/delete' method='post'>
-            <input type='hidden' name='_method' value='delete'>
-            <input type='submit' id='submit' value='Delete Run'>
-        </form>
-        </div>
+            <form action='/runs/<%= @run.id %>/delete' method='post'>
+                <input type='hidden' name='_method' value='delete'>
+                <input type='submit' id='submit' value='Delete Run'>
+            </form>
+            </div>
+        <% end %>
 
         <br><br>
     </ul>
-<% end %>
+
 
 <br><br>
 

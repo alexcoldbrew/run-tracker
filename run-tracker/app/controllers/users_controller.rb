@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       @user = User.find_by(:username => params[:username])
       if @user != nil && @user.password == params[:password]
         session[:user_id] = @user.id
-        redirect to '/runs'
+        redirect to '/my_runs'
       else
         redirect to '/login'
       end
@@ -34,6 +34,7 @@ class UsersController < ApplicationController
     end
   
     get '/logout' do
+        binding.pry
       session.clear
       redirect to '/'
     end

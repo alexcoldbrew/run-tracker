@@ -11,8 +11,8 @@ class RunsController < ApplicationController
   
     get '/runs' do
       if logged_in?
-        @runs = current_user.runs
-        erb :'/runs/show'
+        @runs = Run.all
+        erb :'/runs/index'
       else
         redirect '/login'
       end
@@ -43,6 +43,7 @@ class RunsController < ApplicationController
     get '/runs/:id' do
       if logged_in?
         @run = Run.find_by_id(params[:id])
+        @user = @run.user
         erb :'/runs/show'
       else
         redirect to '/login'
@@ -51,20 +52,24 @@ class RunsController < ApplicationController
   
     get '/runs/:id/edit' do
       
-      if logged_in?
-        @run = Run.find_by_id(params[:id])
+      if logged_in? && @run = Run.find_by_id(params[:id])
+        
         if @run.user_id == session[:user_id]
             erb :'/runs/edit'
         else
             # flash an error message
             redirect to '/login'
         end
+    else
+        redirect to :error
+        
       end
+        
     end
   
     patch '/runs/:id' do
       @run = Run.find_by_id(params[:id])
-      # utilize authorized user helper to stop from going to (or at least updating) another user's run
+      
       if logged_in?
         @run.date = params[:date]
         @run.distance = params[:distance]
@@ -86,5 +91,9 @@ class RunsController < ApplicationController
       redirect to '/runs'
     end
 
+    get '/my_runs' do
+        @runs = current_user.runs
+        erb :'/runs/my_runs'
+    end
 
 end
