@@ -1,11 +1,22 @@
 <h2>Sign Up</h2>
 
+<% if flash[:message] %>
+
+<%= flash[:message] %>
+
+<% end %>
+
+<div id="error">
 
 <% if @errors %>
 <% @errors.each do |error| %>
 <%= error  %>
 <% end %>
 <% end %>
+
+</div>
+
+<br>
 
 
 <a id='submit' href='/'>Go Back to Home</a><br><br>

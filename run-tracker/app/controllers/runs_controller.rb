@@ -11,6 +11,7 @@ class RunsController < ApplicationController
   
     get '/runs' do
       if logged_in?
+        
         @runs = Run.all
         erb :'/runs/index'
       else
