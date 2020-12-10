@@ -2,48 +2,42 @@ class RunsController < ApplicationController
 
     
     get '/runs/new' do
-        erb :'/runs/new'
+        if logged_in?
+            erb :'/runs/new'
+        else
+            redirect '/login'
+        end
     end
   
-    # get "/" do
-    #   erb :'/runs/index'
-    # end
   
     get '/runs' do
       if logged_in?
-        
         @runs = Run.all
         erb :'/runs/index'
       else
         redirect '/login'
       end
     end
-  
-    post '/runs' do
-      # add validations
-      # if params[:distance].empty?
 
-      @runs = current_user.runs
-      @run = Run.new(params)
-      @run.user_id = session[:user_id]
-      @run.save
-      erb :'runs/show'
-    end
-  
-    post '/runs/new' do
-      if logged_in?
-        @run = Run.new(params)
-        @run.user_id = session[:user_id]
-        @run.save
-        erb :'/runs/show'
-      else
-        redirect to '/login'
-      end
+
+    post '/runs' do
+        # validate user inputs for new run form with ActiveRecord validations
+        if logged_in?
+            @runs = current_user.runs
+            @run = Run.new(params)
+            @run.user_id = session[:user_id]
+
+            if @run.save
+                redirect to '/runs/show'
+            else
+                @errors = @run.errors.full_messages
+                erb :'/runs/new' 
+            end
+        end
     end
   
     get '/runs/:id' do
-      if logged_in?
-        @run = Run.find_by_id(params[:id])
+      if logged_in? && @run = Run.find_by_id(params[:id])   
         @user = @run.user
         erb :'/runs/show'
       else
@@ -58,8 +52,6 @@ class RunsController < ApplicationController
         if @run.user_id == session[:user_id]
             erb :'/runs/edit'
         else
-            # flash an error message
-            flash.now[:error] = "This isn't yours to edit!"
             redirect to '/login'
         end
     else

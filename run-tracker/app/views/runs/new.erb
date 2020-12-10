@@ -2,6 +2,18 @@
 
 <a id='submit' href='/runs'>Go Back to Runs</a>
 
+<% if flash[:message] %>
+
+<%= flash[:message] %>
+
+<% end %>
+
+<% if @errors %>
+<% @errors.each do |error| %>
+<%= error  %>
+<% end %>
+<% end %>
+
 <br><br><br>
 
 <form action='/runs' method='post'>
