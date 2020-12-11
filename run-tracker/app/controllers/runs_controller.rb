@@ -30,8 +30,7 @@ class RunsController < ApplicationController
             if @run.save && total != 0
                 redirect to "/runs/#{@run.id}"
             else
-                if total == 0
-                    
+                if total == 0   
                     flash[:message] = "Run duration cannot be 0!!!"
                     erb :'/runs/new' 
                 else
