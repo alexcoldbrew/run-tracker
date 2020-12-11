@@ -92,8 +92,12 @@ class RunsController < ApplicationController
     end
 
     get '/my_runs' do
-        @runs = current_user.runs
-        erb :'/runs/my_runs'
+        if logged_in?
+            @runs = current_user.runs
+            erb :'/runs/my_runs'
+        else
+            redirect to '/login'
+        end
     end
 
 end
