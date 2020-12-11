@@ -21,17 +21,23 @@ class RunsController < ApplicationController
 
 
     post '/runs' do
-        # validate user inputs for new run form with ActiveRecord validations
         if logged_in?
             @runs = current_user.runs
             @run = Run.new(params)
             @run.user_id = session[:user_id]
 
-            if @run.save
-                redirect to '/runs/show'
+            total = params[:hours].to_i + params[:minutes].to_i + params[:seconds].to_i
+            if @run.save && total != 0
+                redirect to "/runs/#{@run.id}"
             else
-                @errors = @run.errors.full_messages
-                erb :'/runs/new' 
+                if total == 0
+                    
+                    flash[:message] = "Run duration cannot be 0!!!"
+                    erb :'/runs/new' 
+                else
+                    @errors = @run.errors.full_messages
+                    erb :'/runs/new' 
+                end
             end
         end
     end
