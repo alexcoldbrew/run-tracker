@@ -77,7 +77,7 @@ class RunsController < ApplicationController
         @run.minutes = params[:minutes]
         @run.seconds = params[:seconds]
         @run.save
-        redirect to '/runs'
+        redirect to '/my_runs'
         else
         redirect to '/login'
       end
