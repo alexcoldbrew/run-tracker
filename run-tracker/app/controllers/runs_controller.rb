@@ -2,22 +2,16 @@ class RunsController < ApplicationController
 
     
     get '/runs/new' do
-        if logged_in?
-            erb :'/runs/new'
-        else
-            redirect '/login'
-        end
+        not_logged_in?
+        erb :'/runs/new'
     end
   
   
     get '/runs' do
-      if logged_in?
-        @runs = current_user.runs
-        @runs = Run.all
-        erb :'/runs/index'
-      else
-        redirect '/login'
-      end
+      not_logged_in?
+      @runs = current_user.runs
+      @runs = Run.all
+      erb :'/runs/index'
     end
 
 
@@ -53,18 +47,9 @@ class RunsController < ApplicationController
   
     get '/runs/:id/edit' do
       
-      if logged_in? && @run = Run.find_by_id(params[:id])
-        
-        if @run.user_id == session[:user_id]
-            erb :'/runs/edit'
-        else
-            redirect to '/login'
-        end
-    else
-        redirect to :error
-        
-      end
-        
+      not_logged_in
+      set_run
+      erb :'/runs/edit'
     end
   
     patch '/runs/:id' do
@@ -91,6 +76,9 @@ class RunsController < ApplicationController
       redirect to '/runs'
     end
 
+
+    
+
     get '/my_runs' do
         if logged_in?
             @runs = current_user.runs
@@ -99,5 +87,14 @@ class RunsController < ApplicationController
             redirect to '/login'
         end
     end
+
+
+    private
+      def set_run
+        @run = Run.find_by_id(params[:id])
+        if !@run
+          redirect to '/runs'
+        end
+      end
 
 end

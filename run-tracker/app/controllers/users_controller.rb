@@ -10,7 +10,7 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id
         redirect to '/my_runs'
       else
-        flash[:message] = "Invalid credentials"
+        flash.now[:message] = "Invalid credentials"
         
         erb :'/users/login'
       end
